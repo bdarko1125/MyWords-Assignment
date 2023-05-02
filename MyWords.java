@@ -5,23 +5,27 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MyWords {
+    //Define the main() method
     public static void main(String[] args) {
         //a filename String that is the location and name of the file to be read.
         String filename = "word.text";
 
         //handle (catch) any Exceptions that are thrown
         try {
+            //Create a text file with some words
             PrintWriter printWriter = new PrintWriter(filename);
             printWriter.write("Happiness\nStruggle\nGrowth\nLove\nPurpose\nAdventure\nBalance\nReflection\nExperience\nGratitude\n");
             printWriter.close();
 
+            //Read the words from the file
             ArrayList<String> words = readFile(filename);
 
+            //Display the list of words
             printList(words);
             String choice;
             Scanner inp = new Scanner(System.in);
 
-            //Use a loop to ask if the user wants to add a new word?
+            //Prompt the user to add a new word with a loop
             do {
                 System.out.print("DO you want to enter a new word? ");
                 choice = inp.nextLine();
@@ -40,7 +44,7 @@ public class MyWords {
         }
     }
 
-    //readFile() method takes the filename String as a parameter and returns an ArrayList of Strings called words.
+    //This method reads the words from the file
     private static ArrayList<String> readFile(String filename) {
 
         ArrayList<String> words = new ArrayList<>();
@@ -58,26 +62,24 @@ public class MyWords {
         return words;
     }
 
-    // printList() method that takes the words ArrayList as a parameter and has no return value.
+    // This method prints out each element of the list using a for-each loop.
     private static void printList(ArrayList<String> words) {
         for (String word : words) {
             System.out.println(word);
         }
     }
 
+    /*
+    *This method prompts the user to enter a new word, and if the word is valid,
+    *it adds to the list. If the word is not valid, the method prints an error message.
+    */
     private static void addWord(ArrayList<String> words) {
         Scanner scan = new Scanner(System.in);
-        //The method prompts the user for a word, and captures the input in a string called word
         System.out.println("Enter a word: ");
         String word = scan.nextLine();
-        //handle (catch) any Exceptions that are thrown
         try {
-            //Use an if statement to check if the word is valid or not by calling the checkWord() method
-            // and passing in the word string
-            //If checkWord() returns is true, then add it to the arrayList
             if (checkWord(word, words)) {
                 words.add(word);
-                //If checkWord() returns false, then output - "This word already exists in the list"
             } else {
                 System.out.println("The word already exits in the lists");
             }
@@ -86,7 +88,12 @@ public class MyWords {
         }
     }
 
-    //checkWord() method takes the word string and words ArrayList as parameters
+    /*
+    *This method takes a word string and an ArrayList of words as arguments,
+    * and returns true if the word is not already in the list,
+    * and false otherwise. The method uses the indexOf() method to search for the word in the list
+    * and returns true if the word is not found.
+     */
     private static boolean checkWord(String word, ArrayList<String> words) {
         try {
             //Check if the word already exists in the words ArrayList by using indexOf() or find() methods,
@@ -99,17 +106,19 @@ public class MyWords {
         return false;
     }
 
-    //writeFile() method that writes words of ArrayList to a text file called "my_words.txt
+    /*This method writes the contents of the ArrayList to a file named "my_words.txt".
+    *The method creates a new PrintWriter object to write to the file,
+    *then uses a for-each loop to write each word on a separate line.
+    * Finally, the method closes the writer.
+    */
     private static void writeFile(ArrayList<String> words) {
         String outputFile = "my_words.txt";
 
         try {
             PrintWriter printWriter = new PrintWriter(new File(outputFile));
-            //words on separate lines
             for (String word : words) {
                 printWriter.write(word + "\n");
             }
-            //close the writer
             printWriter.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
