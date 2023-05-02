@@ -11,14 +11,14 @@ public class MyWords {
 
         //handle (catch) any Exceptions that are thrown
         try {
-            PrintWriter printWriter = new PrintWriter(new File(filename));
+            PrintWriter printWriter = new PrintWriter(filename);
             printWriter.write("Happiness\nStruggle\nGrowth\nLove\nPurpose\nAdventure\nBalance\nReflection\nExperience\nGratitude\n");
             printWriter.close();
 
             ArrayList<String> words = readFile(filename);
 
             printList(words);
-            String choice = "";
+            String choice;
             Scanner inp = new Scanner(System.in);
 
             //Use a loop to ask if the user wants to add a new word?
@@ -75,7 +75,7 @@ public class MyWords {
             //Use an if statement to check if the word is valid or not by calling the checkWord() method
             // and passing in the word string
             //If checkWord() returns is true, then add it to the arrayList
-            if (checkWord(word, words) == true) {
+            if (checkWord(word, words)) {
                 words.add(word);
                 //If checkWord() returns false, then output - "This word already exists in the list"
             } else {
@@ -92,11 +92,7 @@ public class MyWords {
             //Check if the word already exists in the words ArrayList by using indexOf() or find() methods,
             int index = words.indexOf(word);
             //returning true or false as is appropriate.
-            if (index > 0 && index < words.size()) {
-                return false;
-            } else {
-                return true;
-            }
+            return index <= 0 || index >= words.size();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
